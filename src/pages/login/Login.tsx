@@ -1,80 +1,71 @@
-import { Platform, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Platform, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import LargeBtn from "../../components/LargeBtn";
 import LargeInput from "../../components/LargeInput";
+import colors from "../../constants/colors"
+import FormContainer from "../../components/FormContainer";
+import { NavigationProp } from "@react-navigation/native";
+import { RootStackParamList } from "../../constants/rootStackParamList";
 
-const handleChange = (name: string, value: string) => {
+type LoginScreenNavigationProp = NavigationProp<RootStackParamList, "login">;
+
+const Login = ({ navigation }: { navigation: LoginScreenNavigationProp }) => {
+  const handleChange = (name: string, value: string) => {
     console.log(name, value);
-}
+  }
 
-const Login = () => {
-    return (
-        <>
-            <View style={ styles.mainContainer }>
-                <View style={[ styles.formContainer, boxShadow ]}>
-                    <View>
-                        <Text style={ styles.titleForm }>Log in</Text>
-                    </View>
-                    <View>
-                        <SafeAreaView>
-                            <View>
-                                <Text style={ styles.inputTxt }>Email</Text>
-                                <LargeInput name='email' placeholder='Email' secureText={false} onHandleChange={handleChange}/>
-                            </View>
-                            <View>
-                                <Text style={ styles.inputTxt }>Password</Text>
-                                <LargeInput name='password' placeholder='Password' secureText={true} onHandleChange={handleChange}/>
-                            </View>
-                            <View>
-                                <LargeBtn text='Login' color='rgba(104,104,255,1)' />
-                                <LargeBtn text='Sign Up' color='rgba(177,177,255,1)' />
-                            </View>
-                        </SafeAreaView>
-                    </View>
-                </View>
-            </View>
-        </>
-    )
-}
+  const onLogin = () => {
+    console.log("login")
+  }
 
-const boxShadow = ( Platform.OS === 'android' 
-    ? 
-        {
-            elevation: 2,
-        }
-    : 
-        {
-            shadowColor: '#000',
-            shadowOpacity: 0.15,
-            shadowRadius: 2.6,
-            shadowOffset: {
-            width: 1.95,
-            height: 1.95,
-            },
-        }
-)
+  const onSignUp = () => {
+    navigation.navigate('signup');
+  }
+
+  return (
+    <>
+      <View style={ styles.mainContainer }>
+        <FormContainer>
+          <View>
+            <Text style={ styles.titleForm }>Log in</Text>
+          </View>
+          <View>
+            <SafeAreaView>
+              <View>
+                <Text style={ styles.inputTxt }>Email</Text>
+                <LargeInput name='email' placeholder='Email' secureText={false} onHandleChange={handleChange}/>
+              </View>
+              <View>
+                <Text style={ styles.inputTxt }>Password</Text>
+                <LargeInput name='password' placeholder='Password' secureText={true} onHandleChange={handleChange}/>
+              </View>
+              <View>
+                <LargeBtn text='Login' color={ colors.primaryBtn } onPress={onLogin} />
+                <LargeBtn text='Sign Up' color={ colors.secondaryBtn } onPress={onSignUp} />
+              </View>
+            </SafeAreaView>
+          </View>
+        </FormContainer>
+      </View>
+    </>
+  )
+}
 
 const styles = StyleSheet.create({
-    mainContainer: {
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    formContainer: {
-        backgroundColor: '#fff',
-        width: '90%',
-        paddingHorizontal: 15,
-        borderRadius: 5,
-    },
-    titleForm: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginTop: 20,
-        marginBottom: 25,
-    },
-    inputTxt: {
-        marginBottom: 10,
-        fontSize: 15,
-    },
+  mainContainer: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  titleForm: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 25,
+  },
+  inputTxt: {
+    marginBottom: 10,
+    fontSize: 15,
+  },
 });
 
 export default Login;
