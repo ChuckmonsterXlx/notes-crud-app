@@ -4,48 +4,48 @@ import apiCall from '../../helpers/apiCall';
 import { useAppSelector } from '../../hooks/redux';
 
 const Home = () => {
-  apiCall();
+    apiCall();
 
-  const { users, verifedUser } = useAppSelector((state) => state);
+    const { users, verifedUser } = useAppSelector((state) => state);
 
-  return (
-    <>
-        <Text>Users:</Text>
-        <View style={styles.container}>
-            <View style={styles.tableContainer}>
-                
-                <View style={ styles.header }>
-                    <View style={[styles.cell, styles.headerCell]}>
-                        <Text style={styles.headerText}>Name</Text>
-                    </View>
-                    <View style={[styles.cell, styles.headerCell]}>
-                        <Text style={styles.headerText}>Email</Text>
-                    </View>
-                    <View style={[styles.cell, styles.headerCell]}>
-                        <Text style={styles.headerText}>Role</Text>
-                    </View>
-                </View>
-
-                {
-                    users.map((user) => (
-                        <View key={ user.id } style={styles.row}>
-                            <View style={styles.cell}>
-                                <Text style={styles.cellText}>{user.name}</Text>
-                            </View>
-                            <View style={styles.cell}>
-                                <Text style={styles.cellText}>{user.email}</Text>
-                            </View>
-                            <View style={styles.cell}>
-                                <Text style={styles.cellText}>{user.role.label}</Text>
-                            </View>
+    return (
+        <>
+            <Text>Users:</Text>
+            <View style={styles.container}>
+                <View style={styles.tableContainer}>
+                    
+                    <View style={ styles.header }>
+                        <View style={[styles.cell, styles.headerCell]}>
+                            <Text style={styles.headerText}>Name</Text>
                         </View>
-                    ))
-                }
+                        <View style={[styles.cell, styles.headerCell]}>
+                            <Text style={styles.headerText}>Email</Text>
+                        </View>
+                        <View style={[styles.cell, styles.headerCell]}>
+                            <Text style={styles.headerText}>Role</Text>
+                        </View>
+                    </View>
 
+                    {
+                        users.map((user) => (
+                            <View key={ user.id } style={styles.row}>
+                                <View style={styles.cell}>
+                                    <Text style={styles.cellText}>{user.name}</Text>
+                                </View>
+                                <View style={styles.cell}>
+                                    <Text style={styles.cellText}>{user.email}</Text>
+                                </View>
+                                <View style={styles.cell}>
+                                    <Text style={styles.cellText}>{user.role.label}</Text>
+                                </View>
+                            </View>
+                        ))
+                    }
+
+                </View>
             </View>
-        </View>
-    </>
-  );
+        </>
+    );
 };
 
 const styles = StyleSheet.create({
